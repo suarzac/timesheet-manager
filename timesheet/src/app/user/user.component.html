@@ -1,0 +1,78 @@
+<div class="col p-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h2 class="h2">User List</h2>
+    </div>
+  
+    <div class="table-responsive">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary" (click)="displayForm()">Add User</button>
+        </div>
+        <form [hidden]="isDisplayed" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>FirstName</label>
+                        <input class="form-control-sm" type="text" formControlName="firstname" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>LastName</label>
+                        <input class="form-control-sm" type="text" formControlName="lastname" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input class="form-control-sm" type="text" formControlName="description" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control-sm" type="email" formControlName="email" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control-sm" type="password" formControlName="password" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-sm" type="submit">Add User</button>
+            </div>
+        </form>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Description</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of Users; let i = index">
+            <th scope="row"><button class="btn btn-sm"> {{user._id}}</button></th>
+            <td>{{user.firstname }} {{ user.lastname}}</td>
+            <td>{{user.email }}</td>
+            <td>{{user.description }}</td>
+            <td class="text-center">
+              <button class="btn btn-sm" routerLink="./view/{{user._id}}">View</button>
+              <button class="btn btn-sm" routerLink="./edit/{{user._id}}">Edit</button>
+              <button class="btn btn-sm" (click)="delete(user._id, i)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
