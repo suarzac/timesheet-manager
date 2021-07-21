@@ -23,6 +23,7 @@ const doctorRoute = require('./routes/doctor.routes')
 const locationRoute = require('./routes/location.routes')
 const timecardRoute = require('./routes/timecard.routes')
 const userRoute = require('./routes/user.routes')
+const authRoute = require('./routes/auth.routes')
 
 const app = express();
 app.use(bodyParser.json());
@@ -41,6 +42,7 @@ app.use('/api/doctor', doctorRoute)
 app.use('/api/location', locationRoute)
 app.use('/api/timecard', timecardRoute)
 app.use('/api/user', userRoute)
+app.use('/api/auth', authRoute)
 
 
 // PORT

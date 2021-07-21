@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from '../service/User';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from "@angular/forms";
 
+import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -11,25 +11,32 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
+  currentUser: any = {};
+  id = this.actRoute.snapshot.paramMap.get('id'); 
   Users:any = [];
   userForm: FormGroup;
   isDisplayed = true;
 
   constructor(
+    private actRoute: ActivatedRoute,
     private userService: UserService,
     private router: Router,
     private ngZone: NgZone,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public authService: AuthService,
     ) {
+      let id = this.actRoute.snapshot.paramMap.get('id');
+      this.authService.getUserProfile(id).subscribe(res => {
+        this.currentUser = res.msg;
+      })
+
       this.userForm = this.formBuilder.group({
         firstname: [''],
         lastname: [''],
         description: [''],
         email: [''],
         password: ['']
-      }
-      )
+      })
     }
 
   ngOnInit(): void {
@@ -40,21 +47,29 @@ export class UserComponent implements OnInit {
   }
 
   displayForm(){
-    console.log('hello')
     if (this.isDisplayed) {
       this.isDisplayed = false;
     }else{
       this.isDisplayed = true;
     }
   }
-  onSubmit(): any {
-    this.userService.AddUser(this.userForm.value)
-    .subscribe(() => {
-        console.log('Data added successfully!')
-        this.ngZone.run(() => this.router.navigateByUrl('/user'))
-      }, (err) => {
-      console.log(err);
-    });
+
+  registerUser() {
+    this.authService.signUp(this.userForm.value).subscribe((res) => {
+      if (res.result) {
+        this.userForm.reset()
+        this.router.navigate(['/user-profile/'+this.id]);
+      }
+    })
+  }
+
+  edit(id:any) {
+    this.userService.updateUser(id, this.userForm.value).subscribe((res) => {
+      if (res.result) {
+        this.userForm.reset()
+        this.router.navigate(['/user-profile/'+this.id]);
+      }
+    })
   }
 
   delete(id:any, i:any) {
