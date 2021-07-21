@@ -1,1 +1,27 @@
-<p>timecard works!</p>
+<div class="table-responsive">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary" >Add Timecard</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Sector</th>
+            <th scope="col">Location</th>
+            <th class="text-center" scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timecard of Timecards; let i = index">
+                <td>{{timecard.date }}</td>
+                <td>{{timecard.sector }}</td>
+                <td>{{timecard.location }}</td>
+                <td class="text-center">
+                <button class="btn btn-sm" >View/Edit</button>
+                <button class="btn btn-sm" >Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -12,10 +12,14 @@ import { UserService } from '../service/user.service';
 })
 export class UserComponent implements OnInit {
   currentUser: any = {};
+
   id = this.actRoute.snapshot.paramMap.get('id'); 
   Users:any = [];
+
   userForm: FormGroup;
+  editForm: FormGroup;
   isDisplayed = true;
+  editorDisplay = true;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -37,11 +41,19 @@ export class UserComponent implements OnInit {
         email: [''],
         password: ['']
       })
+
+      this.editForm = this.formBuilder.group({
+        _id: [],
+        firstname: [],
+        lastname: [],
+        description: [],
+        email: [],
+        password: []
+      })
     }
 
   ngOnInit(): void {
     this.userService.GetUsers().subscribe(res => {
-      console.log(res)
       this.Users = res;
     });   
   }
@@ -62,14 +74,26 @@ export class UserComponent implements OnInit {
       }
     })
   }
-
-  edit(id:any) {
-    this.userService.updateUser(id, this.userForm.value).subscribe((res) => {
+  editUser(){
+    this.userService.updateUser(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
-        this.userForm.reset()
+        this.editForm.reset()
         this.router.navigate(['/user-profile/'+this.id]);
       }
     })
+  }
+  edit(id:any) {
+    this.editorDisplay = false;
+    this.userService.GetUser(id).subscribe(res => {
+      this.editForm.setValue({
+      _id: res['_id'],
+      firstname: res['firstname'],
+      lastname: res['lastname'],
+      description: res['description'],
+      email: res['email'],
+      password: res['password']
+      });
+    });
   }
 
   delete(id:any, i:any) {

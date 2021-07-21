@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-8">
+        <div class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Doctor List</h2>
+        </div>
+    
+        <div class="table-responsive">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-primary" (click)="display()">Add Doctor</button>
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">File Number</th>
+                    <th class="text-center" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let doctor of Doctors; let i = index">
+                        <td>{{ doctor.firstname }}</td>
+                        <td>{{ doctor.lastname }}</td>
+                        <td><button class='btn btn-sm' routerLinkActive="active" routerLink="/timecard/{{ doctor._id }}">{{ doctor.filenumber }}</button></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm" (click)="edit(doctor._id)">View/Edit</button>
+                            <button class="btn btn-sm" (click)="delete(doctor._id, i)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-4">
+        <form [hidden]="isDisplayed" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>First Name</label>
+              <input class="form-control" type="text" formControlName="firstname" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Last Name</label>
+              <input class="form-control" type="text" formControlName="lastname" required>
+            </div>
+    
+            <div class="form-group">
+              <label>File Number</label>
+                <input class="form-control" type="text" formControlName="filenumber" required>
+            </div>
+    
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Add Doctor</button>
+            </div>
+         </form>
+
+         <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editUser()">
+            <div class="form-group">
+              <label>First Name</label>
+              <input class="form-control" type="text" formControlName="firstname" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Last Name</label>
+              <input class="form-control" type="text" formControlName="lastname" required>
+            </div>
+    
+            <div class="form-group">
+                <label>File Number</label>
+                <input class="form-control" type="text" formControlName="filenumber" required>
+            </div>
+    
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Make Changes</button>
+            </div>
+         </form>
+    </div>
+</div>
