@@ -6,6 +6,7 @@ let Location = require('../model/location');
 
 // Add Location
 locationRoute.route('/add').post((req, res, next) => {
+    console.log('Request function', req.body)
     Location.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -54,7 +55,7 @@ locationRoute.route('/update/:id').put((req, res, next) => {
 
 // Delete Location
 locationRoute.route('/delete/:id').delete((req, res, next) => {
-    User.findByIdAndRemove(req.params.id, (error, data) => {
+    Location.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {

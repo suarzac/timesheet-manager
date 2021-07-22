@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './service/authconfig.interceptor';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -15,7 +16,23 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { TimecardComponent } from './timecard/timecard.component';
 import { DoctorComponent } from './doctor/doctor.component';
-import { LocationComponent } from './location/location.component';
+
+import { LocationListComponent } from './location-list/location-list.component';
+import { LocationViewComponent } from './location-view/location-view.component';
+import { LocationAddComponent } from './location-add/location-add.component';
+import { LocationEditComponent } from './location-edit/location-edit.component';
+import { LocationService } from './service/location.service';
+
+
+import { CrudService } from './service/crud.service';
+import { UserService } from './service/user.service';
+
+import { MatCardModule } from '@angular/material/card';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,7 +42,11 @@ import { LocationComponent } from './location/location.component';
     SignupComponent,
     TimecardComponent,
     DoctorComponent,
-    LocationComponent
+    LocationListComponent,
+    LocationViewComponent,
+    LocationAddComponent,
+    LocationEditComponent
+
   ],
   imports: [
     BrowserModule,
@@ -33,16 +54,19 @@ import { LocationComponent } from './location/location.component';
     FontAwesomeModule,
     NgbModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
-    FormsModule
+    MatCardModule,
+    NoopAnimationsModule
+
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
+  providers: [LocationService, CrudService, UserService,
+    
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+      }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
