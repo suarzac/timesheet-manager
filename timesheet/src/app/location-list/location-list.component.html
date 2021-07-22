@@ -1,0 +1,28 @@
+<router-outlet></router-outlet>
+
+<h2>Location List</h2>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-sm btn-primary" (click)="addlocation()">Add Location</button>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Sector</th>
+            <th>  </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let location of locations">
+            <td>{{location.title | titlecase}}</td>
+            <td>{{location.sector | titlecase}}</td>
+            <td>
+                <button class="btn btn-sm" (click)="editlocation(location)">View/Edit</button>
+                <button class="btn btn-sm" (click)="deletelocation(location)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
