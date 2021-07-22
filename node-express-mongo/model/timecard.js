@@ -21,6 +21,9 @@ let Timecard = new Schema(
         },
         time_out: {
             type: String
+        },
+        hours_code: {
+            type: String,
         }
     }, 
     {

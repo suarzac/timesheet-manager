@@ -13,6 +13,7 @@
                     <th scope="col">Location</th>
                     <th scope="col">Time-In</th>
                     <th scope="col">Time-Out</th>
+                    <th scope="col">Hours-Code</th>
                     <th class="text-center" scope="col">Action</th>
                 </tr>
                 </thead>
@@ -23,9 +24,10 @@
                         <td>{{timecard.location }}</td>
                         <td>{{timecard.time_in }}</td>
                         <td>{{timecard.time_out }}</td>
+                        <td>{{timecard.hours_code }}</td>
                         <td class="text-center">
-                        <button class="btn btn-sm" >View/Edit</button>
-                        <button class="btn btn-sm" >Delete</button>
+                            <button class="btn btn-sm" >View/Edit</button>
+                            <button class="btn btn-sm" >Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -60,7 +62,14 @@
             </div>
 
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Doctor</button>
+                <label>Hours-Code</label>
+                <select class="form-control" type="text" formControlName="hour_codes" required>
+                    <option *ngFor="let hour of hour_codes">{{ hour.code }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Add Timecard</button>
             </div>
          </form>
 

@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TimecardComponent implements OnInit {
   Timecards: any = [];
-
+  hour_codes: any[] = [{'code': 'FMC'}, {'code': 'AMCO'}];
   isDisplayed: boolean = true;
   editorDisplay: boolean = true;
   timecardForm: FormGroup;
@@ -27,7 +27,8 @@ export class TimecardComponent implements OnInit {
       sector: [''],
       location: [''],
       time_in: [''],
-      time_out: ['']
+      time_out: [''],
+      hour_codes: ['']
     })
   }
 
@@ -51,7 +52,8 @@ export class TimecardComponent implements OnInit {
       sector: [''],
       location: [''],
       time_in: [''],
-      time_out: ['']
+      time_out: [''],
+      hour_codes: ['']
     });
   }
 
