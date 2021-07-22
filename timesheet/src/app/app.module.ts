@@ -8,7 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthInterceptor } from './service/authconfig.interceptor';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -23,16 +22,14 @@ import { LocationAddComponent } from './location-add/location-add.component';
 import { LocationEditComponent } from './location-edit/location-edit.component';
 import { LocationService } from './service/location.service';
 
-
-
 import { UserService } from './service/user.service';
 
 import { MatCardModule } from '@angular/material/card';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TimesheetListComponent } from './timesheet-list/timesheet-list.component';
 
-
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -48,7 +45,6 @@ import { TimesheetListComponent } from './timesheet-list/timesheet-list.componen
     LocationAddComponent,
     LocationEditComponent,
     TimesheetListComponent
-
   ],
   imports: [
     BrowserModule,

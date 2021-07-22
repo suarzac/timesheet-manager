@@ -26,7 +26,7 @@
                         <td>{{timecard.time_out}}</td>
                         <td>{{timecard.pay_code}}</td>
                         <td class="text-center">
-                        <button class="btn btn-sm" >View/Edit</button>
+                        <button class="btn btn-sm" (click)="edit(timecard._id)">View/Edit</button>
                         <button class="btn btn-sm" (click)="delete(timecard._id,i)">Delete</button>
                         </td>
                     </tr>
@@ -82,5 +82,52 @@
          </form>
 
          
+    </div>
+    <div class="col-4">
+        <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editUser()">
+            <div class="form-group">
+              <label>Date</label>
+              <input class="form-control" type="date" formControlName="date" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Sector</label>
+              <select class="form-control" formControlName="sector">
+                  <option value="east">East</option>
+                  <option value="west">West</option>
+              </select>
+            </div>
+    
+            <div class="form-group">
+              <label>Location</label>
+              <select class="form-control" formControlName="location" required>
+                <option *ngFor="let location of Locations" [value]="location.title">
+                    {{location.title}}
+                </option>
+            </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Time-In</label>
+                <input class="form-control" type="time" formControlName="time_in" required>
+            </div>
+
+            <div class="form-group">
+                <label>Time-Out</label>
+                <input class="form-control" type="time" formControlName="time_out" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Hours Code</label>
+                <select class="form-control" formControlName="pay_code" required>
+                    <option value="FBP">FBP</option>
+                    <option value="AMCO">AMCO</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Add Timecard</button>
+            </div>
+         </form>
     </div>
 </div>

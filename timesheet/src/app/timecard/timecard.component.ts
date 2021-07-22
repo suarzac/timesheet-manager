@@ -18,6 +18,7 @@ export class TimecardComponent implements OnInit {
   isDisplayed: boolean = true;
   editorDisplay: boolean = true;
   timecardForm: FormGroup;
+  editForm: FormGroup;
   id: any;
   constructor(
     private timecardService: TimecardService,
@@ -35,6 +36,16 @@ export class TimecardComponent implements OnInit {
       time_in: [''],
       time_out: [''],
       pay_code: ['']
+    })
+    this.editForm = this.formBuilder.group({
+      _id: [],
+      doctor_id: [],
+      date: [],
+      sector: [],
+      location: [],
+      time_in: [],
+      time_out: [],
+      pay_code: []
     })
   }
 
@@ -74,7 +85,12 @@ export class TimecardComponent implements OnInit {
         console.log(err);
     });
   }
-
+  editUser(){
+    this.timecardService.updateTimecard(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
+      if (res.result) {
+        this.editForm.reset()      }
+    })
+  }
   delete(id:any, i:any) {
     console.log(id);
     if(window.confirm('Do you want to go ahead?')) {
@@ -82,5 +98,20 @@ export class TimecardComponent implements OnInit {
         this.Timecards.splice(i, 1);
       })
     }
+  }
+  edit(id:any) {
+    this.editorDisplay = false;
+    this.timecardService.GetTimecard(id).subscribe(res => {
+      this.editForm.setValue({
+      _id: res['_id'],
+      doctor_id: res['doctor_id'],
+      date: res['date'],
+      sector: res['sector'],
+      location: res['location'],
+      time_in: res['time_in'],
+      time_out: res['time_out'],
+      pay_code: res['pay_code']
+      });
+    });
   }
 }
