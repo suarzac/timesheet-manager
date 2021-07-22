@@ -1,5 +1,6 @@
 export class Timecard {
     _id!: String;
+    doctor_id!: String;
     date!: Date;
     sector!: String;
     location!: number;

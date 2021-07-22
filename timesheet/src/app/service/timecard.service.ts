@@ -38,6 +38,17 @@ constructor(private httpClient: HttpClient) { }
     return this.httpClient.get(`${this.REST_API}`);
   }
 
+  // Get timecards with id
+  GetTimecardAll(id:any): Observable<any> {
+    let API_URL = `${this.REST_API}/read_all/${id}`;
+    return this.httpClient.get(API_URL, { headers: this.httpHeaders })
+      .pipe(map((res: any) => {
+          return res || {}
+        }),
+        catchError(this.handleError)
+      )
+  }
+  
   // Get single object
   GetTimecard(id:any): Observable<any> {
     let API_URL = `${this.REST_API}/read/${id}`;

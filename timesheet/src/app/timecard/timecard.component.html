@@ -1,27 +1,69 @@
-<div class="table-responsive">
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-sm btn-primary" >Add Timecard</button>
-    </div>
+<div class="row">
+    <div class="col-8">
+        <div class="table-responsive">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-primary" (click)='display(this.id)'>Add New Timecard</button>
+            </div>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Sector</th>
-            <th scope="col">Location</th>
-            <th class="text-center" scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let timecard of Timecards; let i = index">
-                <td>{{timecard.date }}</td>
-                <td>{{timecard.sector }}</td>
-                <td>{{timecard.location }}</td>
-                <td class="text-center">
-                <button class="btn btn-sm" >View/Edit</button>
-                <button class="btn btn-sm" >Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Sector</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Time-In</th>
+                    <th scope="col">Time-Out</th>
+                    <th class="text-center" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let timecard of Timecards; let i = index">
+                        <td>{{timecard.date }}</td>
+                        <td>{{timecard.sector }}</td>
+                        <td>{{timecard.location }}</td>
+                        <td>{{timecard.time_in }}</td>
+                        <td>{{timecard.time_out }}</td>
+                        <td class="text-center">
+                        <button class="btn btn-sm" >View/Edit</button>
+                        <button class="btn btn-sm" >Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-4">
+        <form [hidden]="isDisplayed" [formGroup]="timecardForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Date</label>
+              <input class="form-control" type="text" formControlName="date" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Sector</label>
+              <input class="form-control" type="text" formControlName="sector" required>
+            </div>
+    
+            <div class="form-group">
+              <label>Location</label>
+            <input class="form-control" type="text" formControlName="location" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Time-In</label>
+                <input class="form-control" type="text" formControlName="time_in" required>
+            </div>
+
+            <div class="form-group">
+                <label>Time-Out</label>
+                <input class="form-control" type="text" formControlName="time_out" required>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Add Doctor</button>
+            </div>
+         </form>
+
+         
+    </div>
 </div>

@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 let Timecard = new Schema(
     {
+        doctor_id: {
+            type: String,
+        },
         date: {
             type: Date,
             default: Date.now()

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
 const timecardRoute = express.Router();
 let Timecard = require('../model/timecard');
 
@@ -19,7 +19,7 @@ timecardRoute.route('/add').post((req, res, next) => {
 timecardRoute.route('/').get((req, res) => {
     Timecard.find((error, data) => {
     if (error) {
-      return next(error)
+      return callback(error)
     } else {
       res.json(data)
     }
@@ -36,6 +36,18 @@ timecardRoute.route('/read/:id').get((req, res) => {
     }
   })
 })
+
+// Get all Timecards with id (req.params.id)
+timecardRoute.route('/read_all/:id').get((req, res) => {
+  Timecard.find({ doctor_id: req.params.id }, (error, data) => 
+    {
+      if (error) {
+        return next(error)
+      } else {
+        res.json(data)
+      }
+    })
+});
 
 // Update Timecard (pass id)
 timecardRoute.route('/update/:id').put((req, res, next) => {

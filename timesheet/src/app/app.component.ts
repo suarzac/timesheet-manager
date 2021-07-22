@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,13 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
   title = 'timesheet';
   
-  constructor( public authService: AuthService) { }
-  
+  constructor( 
+    public authService: AuthService,
+    public route: ActivatedRoute
+  ) {}
+
   logout() {
     this.authService.doLogout()
   }
+
 }

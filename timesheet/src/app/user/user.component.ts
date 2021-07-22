@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from "@angular/forms";
 
@@ -30,6 +30,7 @@ export class UserComponent implements OnInit {
     public authService: AuthService,
     ) {
       let id = this.actRoute.snapshot.paramMap.get('id');
+      console.log(id)
       this.authService.getUserProfile(id).subscribe(res => {
         this.currentUser = res.msg;
       })
