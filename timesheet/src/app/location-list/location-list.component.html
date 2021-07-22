@@ -1,0 +1,24 @@
+<router-outlet></router-outlet>
+
+<h2>Location List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Sector</th>
+            <th>  </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let location of locations">
+            <td>{{location.title | titlecase}}</td>
+            <td>{{location.sector | titlecase}}</td>
+            <td>
+                <button mat-raised-button color="primary" (click)="editlocation(location)">Edit</button>
+                <button mat-raised-button color="primary" (click)="deletelocation(location)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

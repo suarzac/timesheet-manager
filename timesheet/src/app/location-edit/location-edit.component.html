@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <br>
+        <h2>Edit Location</h2>
+        <mat-card>
+            <form #locForm="ngForm" (ngSubmit)="update(location, location.id)" novalidate>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="json" ngModel name="title" #title="ngModel" class="form-control" [(ngModel)]="location.title">
+                </div>
+
+                <div class="form-group">
+                    <label>Sector</label>
+                    <select ngModel name="sector" #sector="ngModel" class="form-control" [(ngModel)]="location.sector">
+                        <option value="east">East</option>
+                        <option value="west">West</option>
+                    </select>
+                </div>
+
+                <button mat-flat-button color="accent">Submit</button>
+            </form>
+        </mat-card>
+</div>
