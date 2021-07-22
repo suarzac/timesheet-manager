@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 import { TimecardComponent } from './timecard/timecard.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { LocationComponent } from './location/location.component';
+// Calendar view
 
 const routes: Routes = [
   { path: '', redirectTo: '/log-in', pathMatch: 'full'},
@@ -28,7 +29,6 @@ const routes: Routes = [
       { path: 'add', component: LocationAddComponent}
     ]},
   //{ path: '**', component: LocationListComponent }
-
 ];
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder, ReactiveFormsModule } from "@angular/forms";
 
 import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';

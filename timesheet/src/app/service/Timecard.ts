@@ -6,5 +6,5 @@ export class Timecard {
     location!: number;
     time_in!: String;
     time_out!: String;
-    hours_code!: String;
+    hour_codes!: String;
 }

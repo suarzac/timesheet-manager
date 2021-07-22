@@ -37,7 +37,7 @@ timecardRoute.route('/read/:id').get((req, res) => {
   })
 })
 
-// Get all Timecards with id (req.params.id)
+// Get all Timecards with a given id (req.params.id)
 timecardRoute.route('/read_all/:id').get((req, res) => {
   Timecard.find({ doctor_id: req.params.id }, (error, data) => 
     {
