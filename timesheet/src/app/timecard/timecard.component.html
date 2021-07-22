@@ -36,31 +36,38 @@
         <form [hidden]="isDisplayed" [formGroup]="timecardForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>Date</label>
-              <input class="form-control" type="text" formControlName="date" required>
+              <input class="form-control" type="date" formControlName="date" required>
             </div>
   
             <div class="form-group">
               <label>Sector</label>
-              <input class="form-control" type="text" formControlName="sector" required>
+              <select class="form-control" formControlName="sector">
+                  <option value="east">East</option>
+                  <option value="west">West</option>
+              </select>
             </div>
     
             <div class="form-group">
               <label>Location</label>
-            <input class="form-control" type="text" formControlName="location" required>
+              <select name="location" class="form-control" formControlName="location" required>
+                <option *ngFor="let location of Locations" value="location.title">
+                    {{location.title}}
+                </option>
+            </select>
             </div>
             
             <div class="form-group">
                 <label>Time-In</label>
-                <input class="form-control" type="text" formControlName="time_in" required>
+                <input class="form-control" type="time" formControlName="time_in" required>
             </div>
 
             <div class="form-group">
                 <label>Time-Out</label>
-                <input class="form-control" type="text" formControlName="time_out" required>
+                <input class="form-control" type="time" formControlName="time_out" required>
             </div>
 
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Doctor</button>
+              <button class="btn btn-primary btn-block" type="submit">Add Timesheet</button>
             </div>
          </form>
 

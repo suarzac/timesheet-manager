@@ -29,6 +29,7 @@ import { UserService } from './service/user.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TimesheetListComponent } from './timesheet-list/timesheet-list.component';
 
 
 
@@ -45,7 +46,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     LocationListComponent,
     LocationViewComponent,
     LocationAddComponent,
-    LocationEditComponent
+    LocationEditComponent,
+    TimesheetListComponent
 
   ],
   imports: [
