@@ -24,7 +24,7 @@ import { LocationEditComponent } from './location-edit/location-edit.component';
 import { LocationService } from './service/location.service';
 
 
-import { CrudService } from './service/crud.service';
+
 import { UserService } from './service/user.service';
 
 import { MatCardModule } from '@angular/material/card';
@@ -60,7 +60,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     NoopAnimationsModule
 
   ],
-  providers: [LocationService, CrudService, UserService,
+  providers: [LocationService, UserService,
     
       {
         provide: HTTP_INTERCEPTORS,

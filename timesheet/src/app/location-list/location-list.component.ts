@@ -22,6 +22,10 @@ export class LocationListComponent implements OnInit {
     )
   }
 
+  addlocation() {
+    this.router.navigate(['/locations/add']);
+  }
+
   selectlocation(location: any) {
     console.log(location)
     this.router.navigate(['/locations/', location._id]);

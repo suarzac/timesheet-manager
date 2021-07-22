@@ -2,7 +2,11 @@
 
 <h2>Location List</h2>
 
-<table class="table table-bordered">
+<div class="d-flex justify-content-end">
+    <button class="btn btn-sm btn-primary" (click)="addlocation()">Add Location</button>
+</div>
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Title</th>
@@ -15,8 +19,8 @@
             <td>{{location.title | titlecase}}</td>
             <td>{{location.sector | titlecase}}</td>
             <td>
-                <button mat-raised-button color="primary" (click)="editlocation(location)">Edit</button>
-                <button mat-raised-button color="primary" (click)="deletelocation(location)">Delete</button>
+                <button class="btn btn-sm" (click)="editlocation(location)">View/Edit</button>
+                <button class="btn btn-sm" (click)="deletelocation(location)">Delete</button>
             </td>
         </tr>
     </tbody>
