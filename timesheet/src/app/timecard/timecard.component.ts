@@ -33,7 +33,8 @@ export class TimecardComponent implements OnInit {
       sector: [''],
       location: [''],
       time_in: [''],
-      time_out: ['']
+      time_out: [''],
+      pay_code: ['']
     })
   }
 
@@ -60,7 +61,8 @@ export class TimecardComponent implements OnInit {
       sector: [''],
       location: [''],
       time_in: [''],
-      time_out: ['']
+      time_out: [''],
+      pay_code: ['']
     });
   }
 
