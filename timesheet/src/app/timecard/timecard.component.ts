@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TimecardService } from '../service/timecard.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LocationService } from '../service/location.service';
+import { DoctorService } from '../service/doctor.service';
 
 @Component({
   selector: 'app-timecard',
@@ -10,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TimecardComponent implements OnInit {
   Timecards: any = [];
-  hour_codes: any[] = [{'code': 'FMC'}, {'code': 'AMCO'}];
+  Locations: any = [];
+  Doctors: any = [];
+
   isDisplayed: boolean = true;
   editorDisplay: boolean = true;
   timecardForm: FormGroup;
@@ -19,16 +23,18 @@ export class TimecardComponent implements OnInit {
     private timecardService: TimecardService,
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
+    private locService: LocationService,
+    private docService: DoctorService
 
   ) {
     this.timecardForm = this.formBuilder.group({
-      doctor_id: [],
+      doctor_id: [''],
       date: [''],
       sector: [''],
       location: [''],
       time_in: [''],
       time_out: [''],
-      hour_codes: ['']
+      pay_code: ['']
     })
   }
 
@@ -36,8 +42,11 @@ export class TimecardComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.timecardService.GetTimecardAll(this.id).subscribe(res => {
       this.Timecards = res;
-    })
-    
+    });
+    this.locService.getLocations().subscribe(res => {
+      this.Locations = res});
+    this.docService.GetDoctors().subscribe(res => {
+        this.Doctors = res});
   }
 
   display(id: any){
@@ -53,7 +62,7 @@ export class TimecardComponent implements OnInit {
       location: [''],
       time_in: [''],
       time_out: [''],
-      hour_codes: ['']
+      pay_code: ['']
     });
   }
 

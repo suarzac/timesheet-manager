@@ -29,13 +29,7 @@ import { UserService } from './service/user.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/moment';
-//import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import * as moment from 'moment';
-export function momentAdapterFactory() {
-  return adapterFactory(moment);
-};
+import { TimesheetListComponent } from './timesheet-list/timesheet-list.component';
 
 
 
@@ -53,6 +47,7 @@ export function momentAdapterFactory() {
     LocationViewComponent,
     LocationAddComponent,
     LocationEditComponent,
+    TimesheetListComponent
 
   ],
   imports: [
@@ -65,7 +60,6 @@ export function momentAdapterFactory() {
     ReactiveFormsModule,
     MatCardModule,
     NoopAnimationsModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [LocationService, UserService,
     

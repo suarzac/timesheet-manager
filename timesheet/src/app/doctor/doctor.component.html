@@ -22,7 +22,7 @@
                     <tr *ngFor="let doctor of Doctors; let i = index">
                         <td>{{ doctor.firstname }}</td>
                         <td>{{ doctor.lastname }}</td>
-                        <td><button class='btn btn-sm' routerLinkActive="active" routerLink="/timecard/{{ doctor._id }}">{{ doctor.filenumber }}</button></td>
+                        <td><button class='btn btn-sm' routerLinkActive="active" routerLink="/timecard/{{ doctor.filenumber}}">{{ doctor.filenumber }}</button></td>
                         <td class="text-center">
                             <button class="btn btn-sm" (click)="edit(doctor._id)">View/Edit</button>
                             <button class="btn btn-sm" (click)="delete(doctor._id, i)">Delete</button>
