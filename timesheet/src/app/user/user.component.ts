@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   Users:any = [];
 
   userForm: FormGroup;
+  editId: any;
   editForm: FormGroup;
   isDisplayed = true;
   editorDisplay = true;
@@ -32,9 +33,9 @@ export class UserComponent implements OnInit {
     ) {
       let id = this.actRoute.snapshot.paramMap.get('id');
       console.log(id)
-      this.authService.getUserProfile(id).subscribe(res => {
+      /* this.authService.getUserProfile(id).subscribe(res => {
         this.currentUser = res.msg;
-      })
+      }) */
 
       this.userForm = this.formBuilder.group({
         firstname: ['', [Validators.required, Validators.minLength(3)]],
@@ -45,7 +46,7 @@ export class UserComponent implements OnInit {
       })
 
       this.editForm = this.formBuilder.group({
-        _id: [],
+        /* _id: [], */
         firstname: [],
         lastname: [],
         description: [],
@@ -102,10 +103,11 @@ export class UserComponent implements OnInit {
     })
   }
   editUser(){
-    this.userService.updateUser(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
+    this.userService.updateUser(this.editId, this.editForm.value).subscribe((res) => {
       if (res.result) {
         this.editForm.reset()
       }
+      this.editId = ''
       this.editorDisplay = !this.editorDisplay
       this.userService.GetUsers().subscribe(
         (data) => this.Users = data,
@@ -114,10 +116,10 @@ export class UserComponent implements OnInit {
     })
   }
   edit(id:any) {
+    this.editId = id;
     this.editorDisplay = !this.editorDisplay;
     this.userService.GetUser(id).subscribe(res => {
       this.editForm.setValue({
-      _id: res['_id'],
       firstname: res['firstname'],
       lastname: res['lastname'],
       description: res['description'],
