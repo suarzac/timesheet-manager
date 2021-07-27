@@ -21,6 +21,8 @@ export class TimecardComponent implements OnInit {
   timecardForm: FormGroup;
   editForm: FormGroup;
   id: any;
+  errorMsg: any;
+  
   constructor(
     private timecardService: TimecardService,
     private route: ActivatedRoute,
@@ -94,17 +96,28 @@ export class TimecardComponent implements OnInit {
   }
 
   onSubmit(): any {
-    this.timecardService.AddTimecard(this.timecardForm.value)
-    .subscribe(() => {
-        console.log('Data added successfully!')
+    this.timecardService.AddTimecard(this.timecardForm.value).subscribe(
+      (data) => {
+        this.Timecards = data;
+        console.log(this.Timecards)
+        this.timecardService.GetTimecards().subscribe(
+          (data) => this.Timecards = data,
+          (error) => this.errorMsg = error
+        )
       }, (err) => {
         console.log(err);
     });
   }
-  editUser(){
+  editTimecard(){
     this.timecardService.updateTimecard(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
-        this.editForm.reset()      }
+        this.editForm.reset()
+      }
+      this.editorDisplay = !this.editorDisplay
+      this.timecardService.GetTimecards().subscribe(
+        (data) => this.Timecards = data,
+        (error) => this.errorMsg = error
+      )
     })
   }
   delete(id:any, i:any) {
@@ -129,5 +142,29 @@ export class TimecardComponent implements OnInit {
       pay_code: res['pay_code']
       });
     });
+  }
+
+  get date() {
+    return this.timecardForm.get('date');
+  }
+
+  get sector() {
+    return this.timecardForm.get('sector');
+  }
+
+  get location() {
+    return this.timecardForm.get('location');
+  }
+
+  get time_in() {
+    return this.timecardForm.get('time_in');
+  }
+
+  get time_out() {
+    return this.timecardForm.get('time_out');
+  }
+
+  get pay_code() {
+    return this.timecardForm.get('pay_code');
   }
 }

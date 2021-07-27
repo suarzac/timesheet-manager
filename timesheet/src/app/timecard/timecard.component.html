@@ -38,96 +38,130 @@
         <form [hidden]="isDisplayed" [formGroup]="timecardForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>Date</label>
-              <input class="form-control" type="date" formControlName="date" required>
+              <input class="form-control" type="date" formControlName="date" [class.is-invalid]="date?.invalid  && date?.touched" formControlName="date" required>
+              <div *ngIf="date?.errors && date?.touched">
+                <div class="alert alert-danger" *ngIf="date?.errors?.required">Date is required</div>
+              </div>
             </div>
-  
+
             <div class="form-group">
               <label>Sector</label>
-              <select class="form-control" formControlName="sector">
+              <select class="form-control" formControlName="sector" [class.is-invalid]="sector?.invalid && sector?.touched">
                   <option value="east">East</option>
                   <option value="west">West</option>
               </select>
+              <div *ngIf="sector?.errors && sector?.touched">
+                <div class="alert alert-danger" *ngIf="sector?.errors?.required">Sector is required</div>
+              </div>
             </div>
     
             <div class="form-group">
               <label>Location</label>
-              <select class="form-control" formControlName="location" required>
+              <select class="form-control" formControlName="location" [class.is-invalid]="location?.invalid && location?.touched" required>
                 <option *ngFor="let location of Locations" [value]="location.title">
                     {{location.title}}
                 </option>
             </select>
+            <div *ngIf="location?.errors && location?.touched">
+                <div class="alert alert-danger" *ngIf="location?.errors?.required">Location is required</div>
+              </div>
             </div>
             
             <div class="form-group">
                 <label>Time-In</label>
-                <input class="form-control" type="time" formControlName="time_in" required>
+                <input class="form-control" type="time" formControlName="time_in" [class.is-invalid]="time_in?.invalid && time_in?.touched" required>
+                <div *ngIf="time_in?.errors && time_in?.touched">
+                    <div class="alert alert-danger" *ngIf="time_in?.errors?.required">Time in is required</div>
+                  </div>
             </div>
 
             <div class="form-group">
                 <label>Time-Out</label>
-                <input class="form-control" type="time" formControlName="time_out" required>
+                <input class="form-control" type="time" formControlName="time_out" [class.is-invalid]="time_out?.invalid && time_out?.touched" required>
+                <div *ngIf="time_out?.errors && time_out?.touched">
+                    <div class="alert alert-danger" *ngIf="time_out?.errors?.required">Time out is required</div>
+                  </div>
             </div>
             
             <div class="form-group">
                 <label>Hours Code</label>
-                <select class="form-control" formControlName="pay_code" required>
+                <select class="form-control" formControlName="pay_code" [class.is-invalid]="pay_code?.invalid && pay_code?.touched" required>
                     <option value="FBP">FBP</option>
                     <option value="AMCO">AMCO</option>
                 </select>
+                <div *ngIf="pay_code?.errors && pay_code?.touched">
+                    <div class="alert alert-danger" *ngIf="pay_code?.errors?.required">Pay code is required</div>
+                  </div>
             </div>
 
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Timecard</button>
+              <button class="btn btn-primary btn-block" [disabled]="timecardForm.invalid" type="submit">Add Timecard</button>
             </div>
          </form>
 
-         
-    </div>
-    <div class="col-4">
-        <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editUser()">
-            <div class="form-group">
-              <label>Date</label>
-              <input class="form-control" type="date" formControlName="date" required>
-            </div>
   
-            <div class="form-group">
-              <label>Sector</label>
-              <select class="form-control" formControlName="sector">
-                  <option value="east">East</option>
-                  <option value="west">West</option>
-              </select>
+         <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editTimecard()">
+          <div class="form-group">
+            <label>Date</label>
+            <input class="form-control" type="date" formControlName="date" [class.is-invalid]="date?.invalid  && date?.touched" formControlName="date" required>
+            <div *ngIf="date?.errors && date?.touched">
+              <div class="alert alert-danger" *ngIf="date?.errors?.required">Date is required</div>
             </div>
-    
-            <div class="form-group">
-              <label>Location</label>
-              <select class="form-control" formControlName="location" required>
-                <option *ngFor="let location of Locations" [value]="location.title">
-                    {{location.title}}
-                </option>
+          </div>
+
+          <div class="form-group">
+            <label>Sector</label>
+            <select class="form-control" formControlName="sector" [class.is-invalid]="sector?.invalid && sector?.touched">
+                <option value="east">East</option>
+                <option value="west">West</option>
             </select>
+            <div *ngIf="sector?.errors && sector?.touched">
+              <div class="alert alert-danger" *ngIf="sector?.errors?.required">Sector is required</div>
             </div>
-            
-            <div class="form-group">
-                <label>Time-In</label>
-                <input class="form-control" type="time" formControlName="time_in" required>
+          </div>
+  
+          <div class="form-group">
+            <label>Location</label>
+            <select class="form-control" formControlName="location" [class.is-invalid]="location?.invalid && location?.touched" required>
+              <option *ngFor="let location of Locations" [value]="location.title">
+                  {{location.title}}
+              </option>
+          </select>
+          <div *ngIf="location?.errors && location?.touched">
+              <div class="alert alert-danger" *ngIf="location?.errors?.required">Location is required</div>
             </div>
+          </div>
+          
+          <div class="form-group">
+              <label>Time-In</label>
+              <input class="form-control" type="time" formControlName="time_in" [class.is-invalid]="time_in?.invalid && time_in?.touched" required>
+              <div *ngIf="time_in?.errors && time_in?.touched">
+                  <div class="alert alert-danger" *ngIf="time_in?.errors?.required">Time in is required</div>
+                </div>
+          </div>
 
-            <div class="form-group">
-                <label>Time-Out</label>
-                <input class="form-control" type="time" formControlName="time_out" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Hours Code</label>
-                <select class="form-control" formControlName="pay_code" required>
-                    <option value="FBP">FBP</option>
-                    <option value="AMCO">AMCO</option>
-                </select>
-            </div>
+          <div class="form-group">
+              <label>Time-Out</label>
+              <input class="form-control" type="time" formControlName="time_out" [class.is-invalid]="time_out?.invalid && time_out?.touched" required>
+              <div *ngIf="time_out?.errors && time_out?.touched">
+                  <div class="alert alert-danger" *ngIf="time_out?.errors?.required">Time out is required</div>
+                </div>
+          </div>
+          
+          <div class="form-group">
+              <label>Hours Code</label>
+              <select class="form-control" formControlName="pay_code" [class.is-invalid]="pay_code?.invalid && pay_code?.touched" required>
+                  <option value="FBP">FBP</option>
+                  <option value="AMCO">AMCO</option>
+              </select>
+              <div *ngIf="pay_code?.errors && pay_code?.touched">
+                  <div class="alert alert-danger" *ngIf="pay_code?.errors?.required">Pay code is required</div>
+                </div>
+          </div>
 
-            <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Timecard</button>
-            </div>
-         </form>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" [disabled]="editForm.invalid" type="submit">Add Timecard</button>
+          </div>
+       </form>
     </div>
 </div>
