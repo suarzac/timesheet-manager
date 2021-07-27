@@ -67,8 +67,12 @@ export class DoctorComponent implements OnInit {
     this.doctorService.updateDoctor(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
         this.editForm.reset()
-        this.router.navigate(['/doctor']);
       }
+      this.editorDisplay = !this.editorDisplay
+      this.doctorService.GetDoctors().subscribe(
+        (data) => this.Doctors = data,
+        (error) => this.errorMsg = error
+      )
     })
   }
 
