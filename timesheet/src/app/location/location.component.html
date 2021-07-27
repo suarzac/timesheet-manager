@@ -1,1 +1,72 @@
-<p>location works!</p>
+<div class="row">
+    <div class="col-8">
+        <div class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2 class="h2">Location List</h2>
+        </div>
+    
+        <div class="table-responsive">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-primary" (click)="display()">Add Location</button>
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Sector</th>
+                    <th class="text-center" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let location of Locations; let i = index">
+                        <td>{{ location.title }}</td>
+                        <td>{{ location.sector }}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm" (click)="edit(location._id)">View/Edit</button>
+                            <button class="btn btn-sm" (click)="delete(location._id, i)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-4">
+        <form [hidden]="isDisplayed" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Title</label>
+              <input class="form-control" type="text" formControlName="title" required>
+            </div>
+  
+            <div class="form-group">
+                <label>Sector</label>
+                <select class="form-control" formControlName="sector" required>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Add Location</button>
+            </div>
+         </form>
+
+         <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editUser()">
+            <div class="form-group">
+              <label>Title</label>
+              <input class="form-control" type="text" formControlName="title" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sector</label>
+                <select class="form-control" formControlName="sector" required>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" type="submit">Make Changes</button>
+            </div>
+         </form>
+    </div>
+</div>

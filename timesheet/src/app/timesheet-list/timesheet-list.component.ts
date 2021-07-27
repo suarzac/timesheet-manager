@@ -41,4 +41,19 @@ export class TimesheetListComponent implements OnInit {
     })
   }
 
+  display(doctor: any){
+    if (this.isDisplayed) {
+      this.isDisplayed = false;
+    }else{
+      this.isDisplayed = true;
+    }
+    this.timecardForm.setValue({
+      doctor_id: doctor.id,
+      date: [''],
+      sector: [''],
+      location: [''],
+      time_in: [''],
+      time_out: ['']
+    });
+  }
 }

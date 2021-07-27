@@ -16,10 +16,6 @@ import { SignupComponent } from './signup/signup.component';
 import { TimecardComponent } from './timecard/timecard.component';
 import { DoctorComponent } from './doctor/doctor.component';
 
-import { LocationListComponent } from './location-list/location-list.component';
-import { LocationViewComponent } from './location-view/location-view.component';
-import { LocationAddComponent } from './location-add/location-add.component';
-import { LocationEditComponent } from './location-edit/location-edit.component';
 import { LocationService } from './service/location.service';
 
 import { UserService } from './service/user.service';
@@ -30,6 +26,7 @@ import { TimesheetListComponent } from './timesheet-list/timesheet-list.componen
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { LocationComponent } from './location/location.component';
 
 
 @NgModule({
@@ -40,10 +37,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     SignupComponent,
     TimecardComponent,
     DoctorComponent,
-    LocationListComponent,
-    LocationViewComponent,
-    LocationAddComponent,
-    LocationEditComponent,
+    LocationComponent,
     TimesheetListComponent
   ],
   imports: [

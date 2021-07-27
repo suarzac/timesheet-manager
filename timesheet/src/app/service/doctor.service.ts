@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 // import models
-import { Doctor } from './Doctor';
+import { Doctor } from './doctor';
 
 // QUESTION: Should crud services be split into a service for each component.
 // e.g. user_crud.service.ts, timecard_crud.service.ts etc..

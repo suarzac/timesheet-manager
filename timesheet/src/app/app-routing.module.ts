@@ -22,12 +22,7 @@ const routes: Routes = [
   { path: 'user-profile/:id', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'timecard/:id', component: TimecardComponent, canActivate: [AuthGuard]},
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard]},
-  { path: 'locations', component: LocationListComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'edit/:id', component: LocationEditComponent},
-      { path: 'view/:id', component: LocationViewComponent},
-      { path: 'add', component: LocationAddComponent}
-    ]},
+  { path: 'locations', component: LocationComponent, canActivate: [AuthGuard]},
   //{ path: '**', component: LocationListComponent }
 ];
 

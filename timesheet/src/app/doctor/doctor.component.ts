@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DoctorService } from '../service/doctor.service';
 
@@ -23,9 +23,9 @@ export class DoctorComponent implements OnInit {
     public formBuilder: FormBuilder
     ) { 
         this.doctorForm = this.formBuilder.group({
-          firstname: [''],
-          lastname: [''],
-          filenumber: [''],
+          firstname: ['', [Validators.required, Validators.minLength(3)]],
+          lastname: ['', [Validators.required, Validators.minLength(3)]],
+          filenumber: ['', [Validators.required, Validators.pattern('^[0-9]')]],
         })
         this.editForm = this.formBuilder.group({
           _id: [],

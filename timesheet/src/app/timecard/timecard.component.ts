@@ -54,7 +54,7 @@ export class TimecardComponent implements OnInit {
     this.timecardService.GetTimecardAll(this.id).subscribe(res => {
       this.Timecards = res;
     });
-    this.locService.getLocations().subscribe(res => {
+    this.locService.GetLocations().subscribe(res => {
       this.Locations = res});
     this.docService.GetDoctors().subscribe(res => {
         this.Doctors = res});

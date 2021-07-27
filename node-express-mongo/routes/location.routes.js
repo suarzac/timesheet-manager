@@ -3,6 +3,9 @@ const app = express();
 
 const locationRoute = express.Router();
 let Location = require('../model/location');
+const cors = require('cors')
+
+locationRoute.use(cors())
 
 // Add Location
 locationRoute.route('/add').post((req, res, next) => {
