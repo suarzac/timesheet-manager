@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormBuilder, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors, Validators } from "@angular/forms";
 
 import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
   editForm: FormGroup;
   isDisplayed = true;
   editorDisplay = true;
+  errorMsg: any;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -36,11 +37,11 @@ export class UserComponent implements OnInit {
       })
 
       this.userForm = this.formBuilder.group({
-        firstname: [''],
-        lastname: [''],
-        description: [''],
-        email: [''],
-        password: ['']
+        firstname: ['', [Validators.required, Validators.minLength(3)]],
+        lastname: ['', [Validators.required, Validators.minLength(2)]],
+        description: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(5), this.createPasswordStrengthValidator()]]
       })
 
       this.editForm = this.formBuilder.group({
@@ -52,6 +53,27 @@ export class UserComponent implements OnInit {
         password: []
       })
     }
+
+  createPasswordStrengthValidator(): ValidatorFn {
+      return (control:AbstractControl) : ValidationErrors | null => {
+  
+          const value = control.value;
+  
+          if (!value) {
+              return null;
+          }
+  
+          const hasUpperCase = /[A-Z]+/.test(value);
+  
+          const hasLowerCase = /[a-z]+/.test(value);
+  
+          const hasNumeric = /[0-9]+/.test(value);
+  
+          const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
+  
+          return !passwordValid ? {passwordStrength:true}: null;
+      }
+  }
 
   ngOnInit(): void {
     this.userService.GetUsers().subscribe(res => {
@@ -71,7 +93,11 @@ export class UserComponent implements OnInit {
     this.authService.signUp(this.userForm.value).subscribe((res) => {
       if (res.result) {
         this.userForm.reset()
-        this.router.navigate(['/user-profile/'+this.id]);
+        this.editorDisplay = false
+        this.userService.GetUsers().subscribe(
+          (data) => this.Users = data,
+          (error) => this.errorMsg = error
+        )
       }
     })
   }
@@ -79,8 +105,12 @@ export class UserComponent implements OnInit {
     this.userService.updateUser(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
         this.editForm.reset()
-        this.router.navigate(['/user-profile/'+this.id]);
       }
+      this.editorDisplay = !this.editorDisplay
+      this.userService.GetUsers().subscribe(
+        (data) => this.Users = data,
+        (error) => this.errorMsg = error
+      )
     })
   }
   edit(id:any) {
@@ -106,4 +136,23 @@ export class UserComponent implements OnInit {
     }
   }
 
+  get firstname() {
+    return this.userForm.get('firstname');
+  }
+
+  get lastname() {
+    return this.userForm.get('lastname');
+  }
+
+  get description() {
+    return this.userForm.get('description');
+  }
+
+  get email() {
+    return this.userForm.get('email');
+  }
+
+  get password() {
+    return this.userForm.get('password');
+  }
 }

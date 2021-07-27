@@ -16,6 +16,7 @@ export class DoctorComponent implements OnInit {
   editForm: FormGroup;
   isDisplayed: boolean = true;
   editorDisplay = true;
+  errorMsg: any;
 
   constructor(
     private doctorService: DoctorService,
@@ -25,7 +26,7 @@ export class DoctorComponent implements OnInit {
         this.doctorForm = this.formBuilder.group({
           firstname: ['', [Validators.required, Validators.minLength(3)]],
           lastname: ['', [Validators.required, Validators.minLength(3)]],
-          filenumber: ['', [Validators.required, Validators.pattern('^[0-9]')]],
+          filenumber: ['', [Validators.required, Validators.pattern('^[0-9]+')]],
         })
         this.editForm = this.formBuilder.group({
           _id: [],
@@ -53,6 +54,10 @@ export class DoctorComponent implements OnInit {
     this.doctorService.AddDoctor(this.doctorForm.value)
     .subscribe(() => {
         console.log('Data added successfully!')
+        this.doctorService.GetDoctors().subscribe(
+          (data) => this.Doctors = data,
+          (error) => this.errorMsg = error
+        )
       }, (err) => {
         console.log(err);
     });
@@ -86,5 +91,17 @@ export class DoctorComponent implements OnInit {
         this.Doctors.splice(i, 1);
       })
     }
+  }
+
+  get firstname() {
+    return this.doctorForm.get('firstname');
+  }
+
+  get lastname() {
+    return this.doctorForm.get('lastname');
+  }
+
+  get filenumber() {
+    return this.doctorForm.get('filenumber');
   }
 }

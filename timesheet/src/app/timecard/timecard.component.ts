@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TimecardService } from '../service/timecard.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from '../service/location.service';
 import { DoctorService } from '../service/doctor.service';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-timecard',
@@ -30,12 +31,14 @@ export class TimecardComponent implements OnInit {
   ) {
     this.timecardForm = this.formBuilder.group({
       doctor_id: [''],
-      date: [''],
-      sector: [''],
-      location: [''],
-      time_in: [''],
-      time_out: [''],
-      pay_code: ['']
+      date: ['', [Validators.required]],
+      sector: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      time_in: ['', [Validators.required]],
+      time_out: ['', [Validators.required]],
+      pay_code: ['', [Validators.required]]
+    }, {
+      //validators: [this.createTimeRangeValidator]
     })
     this.editForm = this.formBuilder.group({
       _id: [],
@@ -48,6 +51,19 @@ export class TimecardComponent implements OnInit {
       pay_code: []
     })
   }
+  /*
+  createTimeRangeValidator(fGroup: FormGroup): ValidatorFn {
+    const start: Time = fGroup.get("time_in")
+    const end: Time = fGroup.get("time_out")
+
+    if (start && end) {
+      const isRangeValid = (end - start > 0);
+
+      return isRangeValid ? null : {timeRange:true};
+    }
+    return null;
+  }
+  */
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');

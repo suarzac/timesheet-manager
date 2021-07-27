@@ -16,6 +16,7 @@ export class LocationComponent implements OnInit {
   editForm: FormGroup;
   isDisplayed: boolean = true;
   editorDisplay = true;
+  errorMsg: any;
 
   constructor(
     private locationService: LocationService,
@@ -23,7 +24,7 @@ export class LocationComponent implements OnInit {
     public formBuilder: FormBuilder
     ) { 
         this.locationForm = this.formBuilder.group({
-          title: ['', [Validators.required, Validators.minLength(3)]],
+          title: ['', [Validators.required, Validators.minLength(2)]],
           sector: ['', [Validators.required]],
         })
         this.editForm = this.formBuilder.group({
@@ -48,9 +49,15 @@ export class LocationComponent implements OnInit {
   }
 
   onSubmit(): any {
-    this.locationService.AddLocation(this.locationForm.value)
-    .subscribe(() => {
-        console.log('Data added successfully!')
+    this.locationService.AddLocation(this.locationForm.value).subscribe(
+      (data) => {
+        this.Locations = data;
+        console.log(this.Locations);
+        this.locationService.GetLocations().subscribe(
+          (data) => this.Locations = data,
+          (error) => this.errorMsg = error
+        )
+
       }, (err) => {
         console.log(err);
     });
@@ -60,8 +67,12 @@ export class LocationComponent implements OnInit {
     this.locationService.updateLocation(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
         this.editForm.reset()
-        this.router.navigate(['/location']);
       }
+      this.editorDisplay = !this.editorDisplay
+      this.locationService.GetLocations().subscribe(
+        (data) => this.Locations = data,
+        (error) => this.errorMsg = error
+      )
     })
   }
 
@@ -83,5 +94,13 @@ export class LocationComponent implements OnInit {
         this.Locations.splice(i, 1);
       })
     }
+  }
+
+  get title() {
+    return this.locationForm.get('title');
+  }
+
+  get sector() {
+    return this.locationForm.get('sector');
   }
 }

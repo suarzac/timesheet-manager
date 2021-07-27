@@ -36,21 +36,33 @@
         <form [hidden]="isDisplayed" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>First Name</label>
-              <input class="form-control" type="text" formControlName="firstname" required>
+              <input class="form-control" type="text" [class.is-invalid]="firstname?.invalid && firstname?.touched" formControlName="firstname" required>
+              <div *ngIf="firstname?.errors && firstname?.touched">
+                <div class="alert alert-danger" *ngIf="firstname?.errors?.required">First Name is required</div>
+                <div class="alert alert-danger" *ngIf="firstname?.errors?.minlength">First Name must be at least 3 characters</div>
+              </div>
             </div>
   
             <div class="form-group">
               <label>Last Name</label>
-              <input class="form-control" type="text" formControlName="lastname" required>
+              <input class="form-control" type="text" [class.is-invalid]="lastname?.invalid && lastname?.touched" formControlName="lastname" required>
+              <div *ngIf="lastname?.errors && lastname?.touched">
+                <div class="alert alert-danger" *ngIf="lastname?.errors?.required">Last Name is required</div>
+                <div class="alert alert-danger" *ngIf="lastname?.errors?.minlength">Last Name must be at least 3 characters</div>
+              </div>
             </div>
     
             <div class="form-group">
               <label>File Number</label>
-                <input class="form-control" type="text" formControlName="filenumber" required>
+              <input class="form-control" type="text" [class.is-invalid]="filenumber?.invalid && filenumber?.touched" formControlName="filenumber" required>
+              <div *ngIf="filenumber?.errors && filenumber?.touched">
+                <div class="alert alert-danger" *ngIf="filenumber?.errors?.required">File Number is required</div>
+                <div class="alert alert-danger" *ngIf="filenumber?.errors?.pattern">File Number must be a number</div>
+              </div>
             </div>
     
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Doctor</button>
+              <button class="btn btn-primary btn-block" [disabled]="doctorForm.invalid" type="submit">Add Doctor</button>
             </div>
          </form>
 
@@ -71,7 +83,7 @@
             </div>
     
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Make Changes</button>
+              <button class="btn btn-primary btn-block" [disabled]="editForm.invalid" type="submit">Make Changes</button>
             </div>
          </form>
     </div>

@@ -22,7 +22,6 @@ import { UserService } from './service/user.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TimesheetListComponent } from './timesheet-list/timesheet-list.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -37,8 +36,7 @@ import { LocationComponent } from './location/location.component';
     SignupComponent,
     TimecardComponent,
     DoctorComponent,
-    LocationComponent,
-    TimesheetListComponent
+    LocationComponent
   ],
   imports: [
     BrowserModule,

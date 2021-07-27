@@ -34,19 +34,26 @@
         <form [hidden]="isDisplayed" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label>Title</label>
-              <input class="form-control" type="text" formControlName="title" required>
+              <input class="form-control" type="text" [class.is-invalid]="title?.invalid && title?.touched" formControlName="title" required>
+              <div *ngIf="title?.errors && title?.touched">
+                <div class="alert alert-danger" *ngIf="title?.errors?.required">Title is required</div>
+                <div class="alert alert-danger" *ngIf="title?.errors?.minlength">Title must be at least 2 characters</div>
+              </div>
             </div>
   
             <div class="form-group">
                 <label>Sector</label>
-                <select class="form-control" formControlName="sector" required>
+                <select class="form-control" [class.is-invalid]="sector?.invalid && sector?.touched" formControlName="sector" required>
                     <option value="east">East</option>
                     <option value="west">West</option>
                 </select>
+                <div *ngIf="sector?.errors && sector?.touched">
+                    <div class="alert alert-danger" *ngIf="sector?.errors?.required">Sector is required</div>
+                  </div>
             </div>
     
             <div class="form-group">
-              <button class="btn btn-primary btn-block" type="submit">Add Location</button>
+              <button class="btn btn-primary btn-block" [disabled]="locationForm.invalid" type="submit">Add Location</button>
             </div>
          </form>
 

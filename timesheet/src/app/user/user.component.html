@@ -36,12 +36,20 @@
         <form [hidden]="isDisplayed" [formGroup]="userForm" (ngSubmit)="registerUser()">
             <div class="form-group">
                 <label>FirstName: </label>
-                <input class="form-control" type="text" formControlName="firstname" required>
+                <input class="form-control" type="text" [class.is-invalid]="firstname?.invalid && firstname?.touched" formControlName="firstname" required>
+                <div *ngIf="firstname?.errors && firstname?.touched">
+                    <div class="alert alert-danger" *ngIf="firstname?.errors?.required">First Name is required</div>
+                    <div class="alert alert-danger" *ngIf="firstname?.errors?.minlength">First Name must be at least 3 characters</div>
+                  </div>
             </div>
             
             <div class="form-group">
                 <label>LastName</label>
-                <input class="form-control" type="text" formControlName="lastname" required>
+                <input class="form-control" type="text" [class.is-invalid]="lastname?.invalid && lastname?.touched" formControlName="lastname" required>
+                <div *ngIf="lastname?.errors && lastname?.touched">
+                    <div class="alert alert-danger" *ngIf="lastname?.errors?.required">Last Name is required</div>
+                    <div class="alert alert-danger" *ngIf="lastname?.errors?.minlength">Last Name must be at least 2 characters</div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -51,43 +59,52 @@
             
             <div class="form-group">
                 <label>Email</label>
-                <input class="form-control" type="email" formControlName="email" required>
-            </div>
+                <input class="form-control" type="text" [class.is-invalid]="email?.invalid && email?.touched" formControlName="email" required>
+                <div *ngIf="email?.errors && email?.touched">
+                    <div class="alert alert-danger" *ngIf="email?.errors?.required">Email is required</div>
+                    <div class="alert alert-danger" *ngIf="email?.errors?.email">Please enter a valid email address</div>
+                </div>
+            </div>            
 
             <div class="form-group">
                 <label>Password</label>
-                <input class="form-control" type="password" formControlName="password" required>
+                <input class="form-control" type="text" [class.is-invalid]="password?.invalid && password?.touched" formControlName="password" required>
+                <div *ngIf="password?.errors && password?.touched">
+                    <div class="alert alert-danger" *ngIf="password?.errors?.required">Password is required</div>
+                    <div class="alert alert-danger" *ngIf="password?.errors?.minlength">Password must be at least 5 characters</div>
+                    <div class="alert alert-danger" *ngIf="password?.errors?.passwordStrength">Password must contain an uppercase letter, a lowercase letter, and a number</div>
+                  </div>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary btn-sm" type="submit">Add</button>
+                <button class="btn btn-primary btn-sm" [disabled]="userForm.invalid" type="submit">Add</button>
             </div>
         </form>
 
         <form [hidden]="editorDisplay" [formGroup]="editForm" (ngSubmit)="editUser()">
             <div class="form-group">
                 <label>FirstName: </label>
-                <input class="form-control-sm" type="text" formControlName="firstname" required>
+                <input class="form-control" type="text" formControlName="firstname" required>
             </div>
 
             <div class="form-group">
                 <label>LastName</label>
-                <input class="form-control-sm" type="text" formControlName="lastname" required>
+                <input class="form-control" type="text" formControlName="lastname" required>
             </div>
 
             <div class="form-group">
                 <label>Description</label>
-                <input class="form-control-sm" type="text" formControlName="description" required>
+                <input class="form-control" type="text" formControlName="description" required>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input class="form-control-sm" type="email" formControlName="email" required>
+                <input class="form-control" type="email" formControlName="email" required>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input class="form-control-sm" type="password" formControlName="password" required>
+                <input class="form-control" type="password" formControlName="password" required>
             </div>
 
             <div class="form-group">
