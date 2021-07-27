@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-8">
         <div class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h2 class="h2">Doctor List</h2>
@@ -75,4 +75,48 @@
             </div>
          </form>
     </div>
+</div> -->
+
+
+<div>
+  <div style="display:flex; padding-top: 25px;">
+    <h2>Doctors List</h2>
+    <button mat-flat-button color="accent" (click)="addDoctor()" style="margin-left:auto;">Add Doctor</button>
+  </div>
+  <router-outlet></router-outlet>
+  <!-- <app-user-edit (usersEvent)="refresh($event)"></app-user-edit> -->
+  <table mat-table [dataSource]="Doctors" class="mat-elevation-z8">
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let doctor"> {{ doctor.firstname | titlecase }} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let doctor"> {{doctor.lastname}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="filenumber">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let doctor"> {{doctor.filenumber}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let doctor"> 
+        <button mat-button color="primary" (click)="editDoctor()">Edit</button>
+        <button mat-button color="accent" (click)="deletedoctor(doctor)">Delete</button> 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
 </div>

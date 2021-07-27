@@ -1,28 +1,31 @@
-<div class="col-4">
-    <div class="auth-wrapper">
-        <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="registerUser()">
-            <h3 class="h3 mb-3 font-weight-normal text-center">Please sign up to access content</h3>
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" formControlName="firstname" placeholder="first name" required>
-            </div>
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" class="form-control" formControlName="lastname" placeholder="last name" required>
-            </div> 
-            <div class="form-group">
-                <label>Description</label>
-                <input type="text" class="form-control" formControlName="description" placeholder="General information" required>
-            </div>
-            <div class="form-group">
-                <label>Email address</label>
-                <input type="email" class="form-control" formControlName="email" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" formControlName="password" placeholder="Password" required>
-            </div>
-            <button type="submit" class="btn btn-block btn-primary">Sign up</button>
-        </form>
-    </div>
-</div>
+<mat-grid-list cols="1" rows="1" rowHeight="2:1">
+    <mat-grid-tile>
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Sign up form</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+                    <mat-form-field class="form-group">
+                        <input matInput type="text" class="form-control" formControlName="firstname" placeholder="first name" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-group">
+                        <input matInput type="text" class="form-control" formControlName="lastname" placeholder="last name" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-group">
+                        <input matInput type="text" class="form-control" formControlName="description" placeholder="description" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-group">
+                        <input matInput type="email" class="form-control" formControlName="email" placeholder="Email" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-group">
+                        <input matInput type="password" class="form-control" formControlName="password" placeholder="Password" required>
+                    </mat-form-field>
+                    <div>
+                        <button mat-stroked-button color="accent" type="submit">Sign in</button>
+                    </div>
+                </form>   
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

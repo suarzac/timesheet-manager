@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { MatTableDataSource } from '@angular/material/table'
 import { DoctorService } from '../service/doctor.service';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-doctor',
@@ -11,7 +13,8 @@ import { DoctorService } from '../service/doctor.service';
 })
 export class DoctorComponent implements OnInit {
 
-  Doctors: any = [];
+  Doctors = new MatTableDataSource<any>();
+  errorMsg: any;
   doctorForm: FormGroup;
   editForm: FormGroup;
   isDisplayed: boolean = true;
@@ -34,10 +37,12 @@ export class DoctorComponent implements OnInit {
           filenumber: []
         })
       }
+  columns = ['firstname', 'lastname', 'filenumber', 'action']
+  index = ['_id', 'firstname', 'lastname', 'filenumber']
 
   ngOnInit(): void {
-    this.doctorService.GetDoctors().subscribe(res => {
-      this.Doctors = res;
+    this.doctorService.GetDoctors().subscribe((res:any) => {
+      this.Doctors.data = res;
     })
   }
 
@@ -49,6 +54,10 @@ export class DoctorComponent implements OnInit {
     }
   }
 
+  addDoctor(): any {
+    console.log('add Doctor')
+  }
+  
   onSubmit(): any {
     this.doctorService.AddDoctor(this.doctorForm.value)
     .subscribe(() => {
@@ -58,7 +67,7 @@ export class DoctorComponent implements OnInit {
     });
   }
 
-  editUser(){
+  editDoctor(){
     this.doctorService.updateDoctor(this.editForm.getRawValue()['_id'], this.editForm.value).subscribe((res) => {
       if (res.result) {
         this.editForm.reset()
@@ -79,12 +88,14 @@ export class DoctorComponent implements OnInit {
     });
   }
 
-  delete(id:any, i:any) {
-    console.log(id);
+  deletedoctor(doctor: any) {
     if(window.confirm('Do you want to go ahead?')) {
-      this.doctorService.deleteDoctor(id).subscribe((res) => {
-        this.Doctors.splice(i, 1);
-      })
+      this.doctorService.deleteDoctor(doctor._id).subscribe(() => {
+        this.doctorService.GetDoctors().subscribe(
+          (data:any) => this.Doctors.data = data,
+          (error) => this.errorMsg = error
+        )
+      });
     }
   }
 }

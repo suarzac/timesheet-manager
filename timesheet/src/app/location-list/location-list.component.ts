@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationService } from '../service/location.service';
-
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
@@ -9,15 +9,18 @@ import { LocationService } from '../service/location.service';
 })
 export class LocationListComponent implements OnInit {
 
-  public locations: any;
+  public locations = new MatTableDataSource<any>();
   public errorMsg: any;
 
   constructor(private locService: LocationService,
   private router: Router) { }
 
+  columns = ['title', 'sector', 'action']
+  index = ['_id', 'title', 'sector']
+
   ngOnInit(): void {
     this.locService.getLocations().subscribe(
-      (data) => this.locations = data,
+      (data) => this.locations.data = data,
       (error) => this.errorMsg = error
     )
   }
@@ -28,7 +31,7 @@ export class LocationListComponent implements OnInit {
 
   selectlocation(location: any) {
     console.log(location)
-    this.router.navigate(['/locations/', location._id]);
+    this.router.navigate(['/locations/view/', location._id]);
   }
 
   editlocation(location: any) {
@@ -38,7 +41,7 @@ export class LocationListComponent implements OnInit {
   deletelocation(location: any) {
     this.locService.deleteLocation(location._id).subscribe(() => {
       this.locService.getLocations().subscribe(
-        (data) => this.locations = data,
+        (data) => this.locations.data = data,
         (error) => this.errorMsg = error
       )
     })

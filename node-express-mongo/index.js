@@ -36,9 +36,7 @@ app.use(cors());
 // Static directory path
 app.use(express.static(path.join(__dirname, 'dist/timesheet')));
 
-// API root
-// TODO create api root, should ?list all possible routes, schemas/collections?
-// set api route
+// Routes access
 app.use('/api/doctor', doctorRoute)
 app.use('/api/location', locationRoute)
 app.use('/api/timecard', timecardRoute)

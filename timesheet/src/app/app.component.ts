@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+
 import { AuthService } from './service/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -9,14 +13,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
   title = 'timesheet';
-  
-  constructor( 
-    public authService: AuthService,
-    public route: ActivatedRoute
-  ) {}
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
-  logout() {
-    this.authService.doLogout()
-  }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public authService: AuthService,
+    ) {}
+
+    logout() {
+      this.authService.doLogout()
+    }
 
 }

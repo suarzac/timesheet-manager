@@ -1,0 +1,27 @@
+<mat-card class="box">
+    <mat-card-header>
+        <mat-card-title>Add A User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="firstname" placeholder="first name" required>
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="lastname" placeholder="last name" required>
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="description" placeholder="description" required>
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="email" class="form-control" formControlName="email" placeholder="Email" required>
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="password" class="form-control" formControlName="password" placeholder="Password" required>
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button color="accent" type="submit">Register User</button>
+            </div>
+        </form>   
+    </mat-card-content>
+</mat-card>

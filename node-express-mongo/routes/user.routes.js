@@ -30,7 +30,8 @@ userRoute.route('/').get((req, res) => {
 userRoute.route('/read/:id').get((req, res) => {
     User.findById(req.params.id, (error, data) => {
     if (error) {
-      return next(error)
+      console.log(error)
+      //return next(error)
     } else {
       res.json(data)
     }

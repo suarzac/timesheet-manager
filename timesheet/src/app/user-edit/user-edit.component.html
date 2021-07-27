@@ -1,0 +1,27 @@
+<mat-card class="box">
+    <mat-card-header>
+        <mat-card-title>Edit User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="form-signin" [formGroup]="editForm" (ngSubmit)="editUser(user, user.id)">
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="firstname" placeholder="first name" >
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="lastname" placeholder="last name" >
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="text" class="form-control" formControlName="description" placeholder="description" >
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="email" class="form-control" formControlName="email" placeholder="Email" >
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="password" class="form-control" formControlName="password" placeholder="Password" >
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button color="accent" type="submit">Confirm</button>
+            </div>
+        </form>   
+    </mat-card-content>
+</mat-card>

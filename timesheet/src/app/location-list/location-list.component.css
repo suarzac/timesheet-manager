@@ -1,0 +1,9 @@
+table {
+    width: 50%;
+  }
+  
+  mat-header-cell, mat-cell, mat-button {
+    justify-content: center;
+    text-align: center !important;
+  }
+  

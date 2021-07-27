@@ -15,17 +15,16 @@ export class LocationAddComponent implements OnInit {
   
   sectors = ['East', 'West'];
 
-  constructor(private locService: LocationService, private router: Router) { }
+  constructor(
+    private locService: LocationService,
+    private router: Router
+    ) { }
 
   public locModel = new Location();
   
-   ngOnInit(): void {
-  }
-  
-  
+  ngOnInit(): void {}
 
-  onSubmit(locForm: any){
-    console.log(this.locModel);
+  onSubmit(){
     this.locService.postLocation(this.locModel).subscribe(
       (data) => {this.locations = data;
         this.locService.getLocations().subscribe(

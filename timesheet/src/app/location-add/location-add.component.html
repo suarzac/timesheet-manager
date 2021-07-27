@@ -2,7 +2,7 @@
     <br>
         <h2>Add Location</h2>
         <mat-card>
-            <form #locForm="ngForm" (ngSubmit)="onSubmit(locForm)" novalidate>
+            <form #locForm="ngForm" (ngSubmit)="onSubmit()" >
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" ngModel name="title" #title="ngModel" class="form-control" [(ngModel)]="locModel.title">

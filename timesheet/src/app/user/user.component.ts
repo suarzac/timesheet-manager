@@ -5,12 +5,16 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
 
+// FontAwesome icons
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  faUser = faUser;
   currentUser: any = {};
 
   id = this.actRoute.snapshot.paramMap.get('id'); 
@@ -30,7 +34,6 @@ export class UserComponent implements OnInit {
     public authService: AuthService,
     ) {
       let id = this.actRoute.snapshot.paramMap.get('id');
-      console.log(id)
       this.authService.getUserProfile(id).subscribe(res => {
         this.currentUser = res.msg;
       })

@@ -1,28 +1,38 @@
-<router-outlet></router-outlet>
 
-<h2>Location List</h2>
-
-<div class="d-flex justify-content-end">
-    <button class="btn btn-sm btn-primary" (click)="addlocation()">Add Location</button>
-</div>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Sector</th>
-            <th>  </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let location of locations">
-            <td>{{location.title | titlecase}}</td>
-            <td>{{location.sector | titlecase}}</td>
-            <td>
-                <button class="btn btn-sm" (click)="editlocation(location)">View/Edit</button>
-                <button class="btn btn-sm" (click)="deletelocation(location)">Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+<div>
+    <div style="display:flex; padding-top: 25px;">
+      <h2>Locations List</h2>
+      <button mat-flat-button color="accent" (click)="addlocation()" style="margin-left:auto;">Add Location</button>
+    </div>
+    <router-outlet></router-outlet>
+    <!-- <app-user-edit (usersEvent)="refresh($event)"></app-user-edit> -->
+    <table mat-table [dataSource]="locations" class="mat-elevation-z8">
+      
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let location"> {{ location.title | titlecase }} </td>
+      </ng-container>
+  
+      <!-- SectorColumn -->
+      <ng-container matColumnDef="sector">
+        <th mat-header-cell *matHeaderCellDef> Sector </th>
+        <td mat-cell *matCellDef="let location"> {{ location.sector }} </td>
+      </ng-container>
+  
+    
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let location"> 
+          <button mat-button color="primary" (click)="editlocation(location)">Edit</button>
+          <button mat-button color="accent" (click)="deletelocation(location)">Delete</button> 
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+  </div>
+  
