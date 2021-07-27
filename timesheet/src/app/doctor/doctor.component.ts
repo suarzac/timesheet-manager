@@ -77,7 +77,7 @@ export class DoctorComponent implements OnInit {
   }
 
   edit(id:any) {
-    this.editorDisplay = false;
+    this.editorDisplay = !this.editorDisplay;
     this.doctorService.GetDoctor(id).subscribe(res => {
       this.editForm.setValue({
         _id: res['_id'],

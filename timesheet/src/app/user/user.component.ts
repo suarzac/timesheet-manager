@@ -114,7 +114,7 @@ export class UserComponent implements OnInit {
     })
   }
   edit(id:any) {
-    this.editorDisplay = false;
+    this.editorDisplay = !this.editorDisplay;
     this.userService.GetUser(id).subscribe(res => {
       this.editForm.setValue({
       _id: res['_id'],

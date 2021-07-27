@@ -77,7 +77,7 @@ export class LocationComponent implements OnInit {
   }
 
   edit(id:any) {
-    this.editorDisplay = false;
+    this.editorDisplay = !this.editorDisplay;
     this.locationService.GetLocation(id).subscribe(res => {
       this.editForm.setValue({
         _id: res['_id'],

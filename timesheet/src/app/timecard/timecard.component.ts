@@ -129,7 +129,7 @@ export class TimecardComponent implements OnInit {
     }
   }
   edit(id:any) {
-    this.editorDisplay = false;
+    this.editorDisplay = !this.editorDisplay;
     this.timecardService.GetTimecard(id).subscribe(res => {
       this.editForm.setValue({
       _id: res['_id'],
